@@ -14,13 +14,9 @@ public class DataElement {
 
 	private ArrayList<String> data;
 
-	boolean isComplete = false;// represents when the data entry has all fields
-								// completed
-
 	public DataElement(String n) {
 
 		name = n;
-		// info = new String[7];//holds 8 information values for each company
 
 		transactions = new ArrayList<Integer>();
 
@@ -38,7 +34,6 @@ public class DataElement {
 	}
 
 	// override toString
-	// temporary, TODO: CHANGE TO BE CORRECT FORMATTING FOR CSV
 	public String toString() {
 		return "\"" + name + "\"," + "\"," + data.toString() + "\"," + "\"," + transactions.toString();
 	}
