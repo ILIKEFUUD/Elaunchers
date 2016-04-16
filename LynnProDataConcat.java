@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.util.TreeSet;
 
 /*
  * Rahul Shah
@@ -23,23 +24,40 @@ public class LynnProDataConcat {
 		
 		LynnProDataConcat obj = new LynnProDataConcat();
 		
-		obj.read();
+		obj.read1();
 		
 
 	}
 	
-	public void read(){
+	public void read1(){
 		String file1 = "Customer Phone List Expanded 3-18-16 10-30 AM.csv";
 		BufferedReader br = null;
 		String line = "";
-		
 		String split = ",";
-		
+		TreeSet t = new TreeSet();
 		try{
 			br = new BufferedReader(new FileReader(file1));
 			while((line = br.readLine()) != null){
-				//separate by comma
-				System.out.println("Company: " + line);
+				
+				if(line.contains(",")){
+					String company = line.substring(0, line.indexOf(","));
+					
+					//create DataElements
+					DataElement e = new DataElement(company);
+					
+					int commaIndex = line.indexOf(",");
+					while(!e.done()){
+						if(line.indexOf(",", commaIndex+1) <=0)
+							break;
+						String data = line.substring(commaIndex+1, line.indexOf(",", commaIndex+1));
+						e.add(data);
+						commaIndex = line.indexOf(",", commaIndex+1);
+					}
+					System.out.println(e);
+					
+				}
+				
+				
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -52,7 +70,7 @@ public class LynnProDataConcat {
 				}
 			}
 		}
-		
+		System.out.println(t);
 		System.out.println("Done");
 	}//end of read
 
